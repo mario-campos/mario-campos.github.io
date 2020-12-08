@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<article data-sblg-article="1">
+  <header>
+    <h1>More Hints for Writing Unix Tools</h1>
+    <address>Mario Campos</address>
+    <time>2018-06-10</time>
+    <aside>Best practices for writing Unix command-line tools.</aside>
+  </header>
+  <p>I&#39;ve been meaning to write this post for a long time, because I&#39;ve been thinking that it needs to be said explicitly somewhere. I learned these Unix conventions implicitly, via imitation, as I reckon most have. It wasn&#39;t until I read Marius Eriksen&#39;s <a href="https://monkey.org/%7Emarius/unix-tools-hints.html">Hints For Writing Unix Tools</a> that I felt inspired to write down what I&#39;ve been saying to myself all these years.</p>
+
+<p>If you haven&#39;t read his article yet, I highly recommend you do so now.</p>
+
+<h3 id="Use%20%3Ccode%3E--%3C/code%3E%20to%20separate%20options%20and%20arguments">Use <code>--</code> to separate options and arguments</h3>
+
+<p>There&#39;s a subtle danger to calling programs with the shell&#39;s wildcard, <code>*</code>. The shell will recognize <code>*</code> and expand it to all of the filenames in the current working directory. Now suppose you&#39;ve got a file named <code>-l</code>. It&#39;s unorthodox, but not invalid. What do you think would happen? The invoked program, if it supported the <code>-l</code> flag, might interpret that <code>-l</code> filename as the <code>-l</code> command-line flag. Here&#39;s a simple proof-of-concept from my laptop:</p>
+
+<h4 id="With%20the%20%3Ccode%3E-l%3C/code%3E%20file">With the <code>-l</code> file</h4>
+
+<pre><code class="language-bash">$ touch -- &#39;-l&#39;
+$ ls *
+srwxrwxrwx  1 mario  wheel  0 Jun 10 15:51 dbus-pbu1VfrK2K
+srwxrwxrwx  1 mario  wheel  0 Jun 10 15:51 dbus-zZv2gYpChF
+
+aucat:
+total 0
+srw-rw-rw-  1 root  wheel  0 Jun 10 15:50 aucat0
+
+ssh-HWh60iJW0hq3:
+total 0
+srw-------  1 mario  wheel  0 Jun 10 15:51 agent.93327
+
+vi.recover:
+</code></pre>
+
+<h4 id="Without%20the%20%3Ccode%3E-l%3C/code%3E%20file">Without the <code>-l</code> file</h4>
+
+<pre><code class="language-bash">$ rm -- &#39;-l&#39;
+$ ls *
+dbus-pbu1VfrK2K dbus-zZv2gYpChF
+
+aucat:
+aucat0
+
+ssh-HWh60iJW0hq3:
+agent.93327
+
+vi.recover:
+</code></pre>
+
+<p>Notice the difference? <code>ls</code> modified its output based on the presense of a particular file (or rather, its name), which is erroneous behavior. The astute reader will even notice that I had to use <code>--</code> to even create and delete the <code>-l</code> file. Otherwise, <code>touch</code> and <code>rm</code> might have misinterpreted it.</p>
+
+<p>The <code>--</code> sequence is a command-line delimiter. It states, &#8220;this is the end of options; from here on out are arguments!&#8220; And it was created for just this case. And although it may not be needed often, it has its moments. Just the other day, my friend had trouble moving a file (with <code>mv</code>) because it started with a leading hyphen. Don&#39;t trust user input. Implement <code>--</code>.</p>
+
+<h3 id="Reload%20configuration%20on%20SIGHUP">Reload configuration on SIGHUP</h3>
+
+<p>There is an unspoken &#8220;rule&#8221; about Unix daemons: they reload on <code>SIGHUP</code>. That is, conventionally, Unix daemons will re-read their configuration file(s) and then update their internal state when they receive the <code>SIGHUP</code> signal. Why reload? Because reloading is often faster and &#8220;cheaper&#8221; than a full restart. Okay, but why <code>SIGHUP</code>? <code>SIGHUP</code> is reserved for signalling to a process that its tty has been closed. Since a daemon doesn&#39;t need a tty anymore, it should never receive <code>SIGHUP</code> for the reasons it was intended; that leaves <code>SIGHUP</code> to be repurposed.</p>
+
+<h3 id="Don&amp;#39;t%20start%20in%20the%20background;%20fork(2)!">Don&#39;t start in the background; fork(2)!</h3>
+
+<p>I&#39;ve seen the &#8220;nohup cmd &#38;&#8220; hack more times than I would like. It&#39;s a crude way to daemonize an application. The better solution is to have <code>cmd</code> handle its own daemonizing, by calling <em>fork(2)</em> and properly severing ties to the shell&#39;s environment. Explaining how to properly daemonize is beyond the scope of this paragraph, but these two articles are highly recommended:</p>
+
+<ul>
+<li><a href="http://www.andy-pearce.com/blog/posts/2013/Aug/process-groups-and-sessions/">Process Groups and Sessions</a></li>
+<li><a href="https://codingfreak.blogspot.com/2012/03/daemon-izing-process-in-linux.html">Daemon-izing a Process in Linux</a></li>
+</ul>
+
+<h3 id="Implement%20-0%20when%20outputting%20filenames">Implement -0 when outputting filenames</h3>
+
+<p>If you have ever piped <code>find</code> to <code>xargs</code>, you may have wondered why <a href="https://stackoverflow.com/a/897043">it&#39;s recommended to pass the <code>-print0</code> and <code>-0</code> flags, respectively</a>. The reason is because <a href="https://unix.stackexchange.com/a/155836">most characters are allowed in Unix filenames</a>, except the NUL byte (<code>\0</code>) and Unix path separator (<code>&#47;</code>). That means you&#39;ll never see a NUL byte in a filename, so it is the perfect filename delimiter!</p>
+
+<p>You can&#39;t always expect filenames to be consistent, regular, or even sensible. So if your Unix program is outputting a stream of filenames, implement a <code>-0</code> switch and then delimit filenames with the NUL byte to reliable handle irregular input.</p>
+
+<h3 id="Implement%20a%20usage">Implement a usage</h3>
+
+<p>A program&#39;s usage is one of those things that people take for granted. It&#39;s there when you&#39;ve forgotten the command&#39;s syntax, but you&#39;re too lazy (admit it) to plow through the full man page. The usage is the &#8220;man page: cliff-notes edition.&#8220; A simple <code>-h</code> or <code>--help</code> can go a long way for documention.</p>
+
+<p>There are various ways to structure a usage, but that is out of the scope of this post&#8211;and, honestly, a bit too trite for words. For the curious, I implement my usages like so:</p>
+
+<pre><code>usage: cmd foo [-f file] [--] arg1 arg2 arg3
+       cmd bar [-abc] [--] arg1
+       cmd -V|--version
+       cmd -h|--help
+</code></pre>
+
+<p>I try to implement these conventions into my programs so that my users don&#39;t have to work harder than they should. It&#39;s these little details&#8211;the little courtesies from one Unix programmer to another&#8211;that makes the Unix programming environment so powerful and pleasant. Or, at least, that is one of the reasons. Be kind to your fellow techies. Write quality software :)</p>
+</article>

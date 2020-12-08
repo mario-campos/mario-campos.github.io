@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>dyndnsd&#39;s Abstract Syntax Tree</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="color-bars-header">
+        <div class="cor-head colr-1"></div>
+        <div class="cor-head colr-2"></div>
+        <div class="cor-head colr-3"></div>
+        <div class="cor-head colr-4"></div>
+        <div class="cor-head colr-1"></div>
+        <div class="cor-head colr-2"></div>
+        <div class="cor-head colr-3"></div>
+        <div class="cor-head colr-4"></div>
+      </div>
+      <header class="site-header">
+        <div class="wrapper"> 
+          <a href="/"><h1 class="site-title">Mario Campos</h1></a>
+          <nav class="site-nav" data-sblg-nav="1">
+            <a class="nav-link" href="/blog">Blog</a>
+	    <a class="nav-link" href="/about">About</a>
+	    <a class="nav-link" href="/contact">Contact</a>
+          </nav>
+        </div>
+      </header>
+    </div>
+    <article data-sblg-article="1">
+  <header>
+    <h1>dyndnsd&#39;s Abstract Syntax Tree</h1>
+    <address>Mario Campos</address>
+    <time>2017-11-28</time>
+    <aside>All about how dyndnsd implements an Abstract Syntax Tree.</aside>
+  </header>
+  <p>For the past year, I&#39;ve been quietly working on a personal project called <a href="http://www.mariocampos.io/dyndnsd">dyndnsd</a>. I am planning to write an introduction later, but, right now, I want to talk about a novel aspect (in my opinion) of <code>dyndnsd</code>. Here&#39;s the TL;DR: <code>dyndnsd</code> is a Dynamic DNS daemon. That is, it&#39;s purpose is to run in the background and update the <em>A</em> records of some domain, based on the current IP address of some network interface.</p>
+
+<p>In order to know what domain to update and which interface to monitor, <code>dyndnsd</code> expects a configuration file. A simple configuration file might look like this:</p>
+
+<pre><code>user nobody
+group nobody
+
+# I am a comment
+interface em0 {
+  domain example.com {
+    update https:&#47;&#47;...
+  }
+}
+</code></pre>
+
+<p>However, these bytes, as they are, are not operable (or at least not in any functional, efficient way). What I really need is a data structure that can be traversed to get the highlights. This data structure is called an <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a> (AST). The thing about ASTs is that they are supposed to be lightweight and efficient for traversing. No frills, no superfluous details, just the bare necessities.</p>
+
+<p>This is <code>dyndnsd</code>&#39;s AST:</p>
+
+<pre><code class="language-C">struct ast_domain {
+    char *domain;
+    char *url;
+};
+
+struct ast_iface {
+    char *if_name;
+    size_t domain_len;
+    struct ast_domain *domain[];
+};
+
+struct ast_root {
+    char *user;
+    char *group;
+    size_t iface_len;
+    struct ast_iface *iface[];
+};
+</code></pre>
+
+<p>Notice that the AST only stores the key information: user name, group name, interface name, URL, etc. It has no need for comments, line numbers, keywords (like <code>interface</code>), or whitespace.</p>
+
+<p>Notice anything else? How about those arrays whose size is omitted! Those, my friend, are called <a href="https://en.wikipedia.org/wiki/Flexible_array_member">Flexible Array Members</a>, a clever feature of C99. They are conceptually simpler and more cache-friendly than Linked Lists. And they work exactly like you imagine: when I allocate the memory for one of those <code>struct</code>s, I also include enough memory for <em>N</em> array members. The <code>size_t</code> member (such as <code>domain_len</code> or <code>iface_len</code>) is assigned the value <em>N</em>, so I know the upper bound of the array.</p>
+
+<p>If that was too wordy, take a look at this UML-class diagram &#47; memory-structure layout image:</p>
+
+<p><img src="https://i.imgur.com/ZWiViIh.jpg" alt="AST structure visualized"/></p>
+
+<p>Okay&#8211;enough with the CS. Let&#39;s take another look at that simple example. Let&#39;s see how <code>dyndnsd</code> would convert it into an AST.</p>
+
+<p><img src="https://i.imgur.com/lSu3J6L.jpg" alt="dyndnsd's AST example"/></p>
+
+<p>Don&#39;t be afraid if it looks daunting. I intentionally tried to keep it low-level. Those boxes represent &#8220;objects&#8221; in memory (or <code>struct</code>s as we refer to them C). The (arbitrary) hexadecimal number above a <code>struct</code> is its base address. The (also arbitrary) hexadecimal numbers <em>inside</em> the <code>struct</code> represent pointers&#8211;the lines just help visualize them.</p>
+
+<p>One can intuit that, since all other objects &#8220;stem&#8221; from their top-left-corner object, that it must be the <code>struct ast_root</code> structure. If you squint at it carefully, you can kinda see the tree in the name Abstract Syntax Tree. The username and groupname are found at the <code>struct ast_root</code> structure because, likewise, they&#39;re in the top-level scope of the configuration file. Also, in the top-level scope of the configuration are the interface scopes. And you&#39;ll see that for each interface scope in the configuration file, there will be a corresponding pointer in the Flexible Array Member of the <code>struct ast_root</code> structure.</p>
+
+<p>If you look closely, you&#39;ll see this symmetry throughout the configuration and AST. However, sometimes, there are deviations; there is some asymmetry, &#8220;shortcuts&#8221; if you will, that I&#39;ve enabled, in which the configuration won&#39;t match the AST one-for-one. This is where the &#8220;Abstract&#8221; part of &#8220;Abstract Syntax Tree&#8221; comes into play. Look at the configuration below to see what I mean:</p>
+
+<pre><code>update https:&#47;&#47;...
+interface em0 {
+  domain example.com
+}
+</code></pre>
+
+<p>With this configuration, you might expect to find a <code>char *</code> pointer to <code>"https:&#47;&#47;..."</code> somewhere in the <code>struct ast_root</code> structure. But you won&#39;t. Instead, this URL is &#8220;propogated&#8221; or &#8220;distributed&#8221; to the applicable domain, <em>example.com</em>. Instead, the URL will be pointed from within the applicable <code>struct ast_domain</code> structure. This allows the AST to maintain a consistent structure, regardless of where the configuration&#39;s <code>update</code> statement may lie. The benefit is that the system administrator gains some flexibility in the configuration, <em>and</em> <code>dyndnsd</code> will still have a consistent, efficient traversal path through the AST.</p>
+
+<p>I&#39;ve gone over the output of parsing the configuration file, but I skipped over a big part: the actual parsing. Part of the parsing phase includes this structure called the Concrete Syntax Tree (CST). My next post will cover the CST in much more detail, but, for now, I&#39;ll just leave you with a little teaser: if the AST is like Greymon or Charizard, then the CST is like Agumon or Charmander.</p>
+</article>
+    <footer class="site-footer">
+      <div class="wrapper"></div>
+      <div class="color-bars-header">
+        <div class="cor-head colr-1"></div>
+        <div class="cor-head colr-2"></div>
+        <div class="cor-head colr-3"></div>
+        <div class="cor-head colr-4"></div>
+        <div class="cor-head colr-1"></div>
+        <div class="cor-head colr-2"></div>
+        <div class="cor-head colr-3"></div>
+        <div class="cor-head colr-4"></div>
+      </div>
+    </footer>
+  </body>
+</html>
+

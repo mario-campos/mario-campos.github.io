@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<article data-sblg-article="1">
+  <header>
+    <h1>Prefer Data Constructors</h1>
+    <address>Mario Campos</address>
+    <time>2016-07-19</time>
+    <aside>An opinionated post about how to write Python class constructors.</aside>
+  </header>
+  <p>I&#39;m no OOP expert, but I tended to write my classes a certain way. I delegated any initialization logic to the constructor. It makes sense, doesn&#39;t it? You&#39;ve got some code that should run first. Why not put it in the method&#47;function that gets called first? And so, I would trot along, happily writing code like this:</p>
+
+<pre><code class="language-python">class Date(object):
+  def __init__(self, date_str):
+    (m,d,y) = date_str.split(&#39;&#47;&#39;)
+    self.month = int(m)
+    self.day   = int(d)
+    self.year  = int(y)
+</code></pre>
+
+<p>It wasn&#39;t until I came across <a href="https://pythonhosted.org/PGPy/">PGPy&#39;s documentation</a> that I noticed something: their code doesn&#39;t resemble your typical Python code. Take, for instance, their <code>PGPMessage</code> class:</p>
+
+<pre><code class="language-python"># this creates a standard message from text
+# it will also be compressed, by default with ZIP DEFLATE, unless otherwise specified
+text_message = pgpy.PGPMessage.new("This is a brand spankin&#39; new message!")
+
+# PGPMessage will automatically determine if this is a cleartext message or not
+message_from_file = pgpy.PGPMessage.from_file("path&#47;to&#47;a&#47;message")
+message_from_blob = pgpy.PGPMessage.from_blob(msg_blob)
+</code></pre>
+
+<p><em>What is this <code>from_blob()</code> stuff? Why no constructor, <code>PGPMessage</code>?</em></p>
+
+<p>Although I couldn&#39;t quite put my finger on it, something about this code appealed to me. After a few months, it dawned on me: PGPy&#39;s code cleanly separates behavior from data.</p>
+
+<h2 id="Code%20&amp;#38;&amp;#38;%20Data">Code &#38;&#38; Data</h2>
+
+<p>In typical Python code&#8211;à la Python Standard Library&#8211;the arguments of a constructor or function determine the behavior of that class or function, respectively. For example, Python&#39;s <code>tarfile.TarFile</code> class can do several things, depending on how it is called:</p>
+
+<pre><code class="language-python">from tarfile import TarFile
+
+# open tarball via file path
+TarFile(&#39;path&#47;to&#47;file.tar&#39;)
+
+# open tarball via file object
+with fh:
+  TarFile(fileobj=fh)
+</code></pre>
+
+<p>If I were to rewrite <code>PGPMessage</code> in this form, it might look something like this:</p>
+
+<pre><code class="language-python">class PGPMessage(object):
+  def __init__(self, new=None, from_file=None, from_blob=None):
+    if new_message is None:
+      # ...
+    elif from_file is None:
+      # ...
+    else:
+      # ...
+
+text_message = PGPMessage(new="This is a band spankin&#39; new message!")
+message_from_file = PGPMessage(from_file="path&#47;to&#47;a&#47;message")
+message_from_blob = PGPMessage(from_blob=msg_blob)
+</code></pre>
+
+<p>The problem with this, with conflating all of your &#8220;constructors&#8221; through the single interface of a function call, is that you mix behavior <em>and</em> data. As a result, your class will be harder to test, because every test instance of an object will execute (potentially buggy) boilerplate code as part of the constructor:</p>
+
+<pre><code class="language-python"># Did `is_today()` fail or did `Date()` fail? ¯\_(ツ)_&#47;¯
+def test_date_is_today():
+  assert Date(&#39;7&#47;19&#47;2016&#39;).is_today()
+</code></pre>
+
+<h2 id="Code%20%7C%7C%20Data">Code || Data</h2>
+
+<p>The solution is to separate your code from data. Let the class constructor&#8211;hereby referred to as the <em>Data Constructor</em>&#8211;set (and only set) the object&#39;s members. Treat the class like a <code>namedtuple</code>. And leave the initialization and all of the code that goes with it (input validation, boilerplate, pre-conditions, etc.) for the class methods, which would return an instance of the class:</p>
+
+<pre><code class="language-python">class Date(object):
+  def __init__(self, month, day, year):
+    self.month = month
+    self.day   = day
+    self.year  = year
+
+  @classmethod
+  def from_str(cls, date_str):
+    (m,d,y) = date_str.split(&#39;&#47;&#39;)
+    return cls(m, d, y)
+</code></pre>
+
+<p>There are numerous benefits to doing so (like readability), but the one I want to focus on is the benefit to unit testing.</p>
+
+<h2 id="Data%20Constructors%20%E2%87%92%20Better%20Unit%20Tests">Data Constructors ⇒ Better Unit Tests</h2>
+
+<p>Recall that a unit test is so named because it tests the smallest semantic unit of your code, arguably a function or method. It should test no more that that.</p>
+
+<p>Yet, the above unit test does exactly that: it tests more than one unit, namely the method <code>is_today()</code> and the constructor, <code>__init__()</code>. By separating code from data, these unit tests will only test the appropriate unit, making debugging that much easier:</p>
+
+<pre><code class="language-python"># only testing `Date.is_today()`
+def test_date_is_today():
+  assert Date(7, 19, 2016).is_today()
+
+# only testing `Date.from_str()`
+def test_date_from_str():
+  assert Date(7, 19, 2016) == Date.from_str(&#39;7&#47;19&#47;2016&#39;)
+</code></pre>
+
+<h2 id="Conclusion">Conclusion</h2>
+
+<p>Not only are data constructors better for unit testing, but they&#39;re also more readable, especially with more than one &#8220;constructor&#8221; in the constructor.</p>
+
+<p>Separation of code and data is not a new concept. Nor is it exclusive to Functional Programming. Remember SQLi attacks? They&#39;ve been on the tippy top of the OWASP Top Ten for 2013 <em>and</em> 2010! (And probably even longer than that). SQLi is <em>the</em> poster boy of mixing code and data.</p>
+
+<h2 id="Updates">Updates</h2>
+
+<ul>
+<li>As <em>&#47;u&#47;k3ithk</em> correctly <a href="https://www.reddit.com/r/Python/comments/4tsl4f/prefer_data_constructors/d5k0tfj">pointed out</a>, in Python, the constructor of a class is actually <code>__new__()</code>, not <code>__init__()</code>; <code>__init__()</code> is actually the initializer. The argument is still valid. Overlook my ignorance. Just know that when I said &#8220;constructor,&#8220; I meant <code>__init__()</code>.</li>
+<li>As <em>&#47;u&#47;deltageek</em> pointed out, this (refactoring) is not a new concept, nor is it a Python-only concept. Another, more-popular name for this is <a href="https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)">Factory Method</a>.</li>
+</ul>
+</article>

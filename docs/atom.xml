@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<feed xmlns="http://www.w3.org/2005/Atom"> 
+  <link href="https://www.mariocampos.io" /> 
+  <title>Mario Campos</title> 
+  <updated>2020-12-08T04:58:58Z</updated> 
+  <id>https://www.mariocampos.io/</id> 
+  <entry>
+		<id>https://www.mariocampos.io/docs/shitty-software.xml#2020-12-08T04:58:58Z</id>
+		<updated>2020-12-08T04:58:58Z</updated>
+		<title>Shitty Software</title>
+		<author><name>Mario Campos</name></author>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+Less is More</div>
+		</content>
+	</entry>
+	<entry>
+		<id>https://www.mariocampos.io/docs/dyndnsds-ast.xml#2020-12-08T04:58:58Z</id>
+		<updated>2020-12-08T04:58:58Z</updated>
+		<title>dyndnsd&#39;s Abstract Syntax Tree</title>
+		<author><name>Mario Campos</name></author>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+All about how dyndnsd implements an Abstract Syntax Tree.</div>
+		</content>
+	</entry>
+	<entry>
+		<id>https://www.mariocampos.io/docs/more-unix-tools-hints.xml#2020-12-08T04:58:58Z</id>
+		<updated>2020-12-08T04:58:58Z</updated>
+		<title>More Hints for Writing Unix Tools</title>
+		<author><name>Mario Campos</name></author>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+Best practices for writing Unix command-line tools.</div>
+		</content>
+	</entry>
+	<entry>
+		<id>https://www.mariocampos.io/docs/my-password-generator.xml#2020-12-08T04:58:58Z</id>
+		<updated>2020-12-08T04:58:58Z</updated>
+		<title>My Password Generator</title>
+		<author><name>Mario Campos</name></author>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+Discover a simple, built-in pseudorandom-password generator.</div>
+		</content>
+	</entry>
+	<entry>
+		<id>https://www.mariocampos.io/docs/meson-first-impressions.xml#2020-12-08T04:58:57Z</id>
+		<updated>2020-12-08T04:58:57Z</updated>
+		<title>Meson, First Impressions</title>
+		<author><name>Mario Campos</name></author>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+The pains and joys of using Meson for the first time!</div>
+		</content>
+	</entry>
+	<entry>
+		<id>https://www.mariocampos.io/docs/prefer-data-constructors.xml#2020-12-08T04:58:57Z</id>
+		<updated>2020-12-08T04:58:57Z</updated>
+		<title>Prefer Data Constructors</title>
+		<author><name>Mario Campos</name></author>
+		<content type="xhtml">
+			<div xmlns="http://www.w3.org/1999/xhtml">
+An opinionated post about how to write Python class constructors.</div>
+		</content>
+	</entry>
+ 
+</feed>
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<article data-sblg-article="1">
+  <header>
+    <h1>Shitty Software</h1>
+    <address>Mario Campos</address>
+    <time>2017-02-21</time>
+    <aside>Less is More</aside>
+  </header>
+  <p>Today, my boss asked me why I don&#39;t join the developers, noticing the talk <a href="https://youtu.be/1qBHf8DrWR8"><em>Why Functional Programming Matters</em></a> on my second screen. It was a rhetorical question, so I didn&#39;t answer. Otherwise, I might have said that software engineering is like trying to bake a wedding cake out of cake leftovers, frosting, and duct tape. <a href="http://tinyclouds.org/rant.html">It&#39;s all shit.</a> Most software seems to be layers upon layers of obscure complexity, abstraction, and boilerplate middleware. And it will collapse under its own weight, if it hasn&#39;t already.</p>
+
+<p>Resist the urge to require MongoDB as a configuration backend. What&#39;s wrong with a file? Or SQLite? <a href="http://www.catb.org/esr/writings/taouu/html/ch01s03.html">Allow your users the luxury of ignorance.</a> In general, if a user does not <em>need</em> a configuration knob, don&#39;t give them one, lest they will use it. Or worse yet, you may find it exposes a vulnerability to your application.</p>
+
+<p>Less is more. While fancy features are nice, reliable fast-loading web pages are even nicer. Have you ever seen an app grow smaller and drop permissions over time? Me neither. An interesting side effect of reducing code size is an increase in performance. After all, <a href="http://www.ilikebigbits.com/blog/2015/12/6/the-fastest-code-is-the-code-that-never-runs">the fastest code is the code that never runs.</a></p>
+
+<p>Don&#39;t use <code>pip</code> or whatever language-based package manager to deploy software. They lack in comparison to OS-based package managers. If you care about your users (and us system administrators), realize you&#39;re just adding an extra dependency to your software. Instead, I emplore developers to become package maintainers to their own software. Go the extra mile for your users.</p>
+
+<p>Write readable, concise, descriptive documentation. Provide a brief tutorial, examples, an API guide, etc. Cover the corner cases. While I encourage plentiful documentation—the kind for which OpenBSD and Arch Linux is praised—I also warn you to Keep It Simple, Stupid. Too much documentation is only slightly better than too few. A sad amount of my time is devoted to wading through the swaths of books detailing the overly-convoluted update procedure of Shitty-Ass Software (SAS).</p>
+
+<p>I think that&#39;s why, these days, I gravitate towards OpenBSD, and its stark nature for simplicity, minimalism, correctness, and security. In fact, it was <a href="http://www.tedunangst.com/flak/post/features-are-faults-redux">Ted Unangst&#39;s recent post on featuritis</a> that inspired me to write this one. Sadly, this philosophy seems to be a minority. </p>
+</article>

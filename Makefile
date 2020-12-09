@@ -10,11 +10,11 @@ ARTICLES = docs/meson-first-impressions.md \
 ARTICLES_HTML = ${ARTICLES:S/md$/html/}
 
 .SUFFIXES: .md .xml
-.md.xml:
+.md.xml: article.xml.sh
 	LOWDOWN=$(LOWDOWN) sh article.xml.sh $< >$@
 
 .SUFFIXES: .xml .html
-.xml.html:
+.xml.html: page.xml
 	$(SBLG) -t page.xml -c $<
 
 all: $(ARTICLES_HTML)

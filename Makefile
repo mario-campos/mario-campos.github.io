@@ -1,11 +1,11 @@
 SBLG	 = sblg
 LOWDOWN  = lowdown
-ARTICLES = docs/meson-first-impressions.md \
-	   docs/prefer-data-constructors.md \
-	   docs/shitty-software.md \
-	   docs/dyndnsds-ast.md \
-	   docs/more-unix-tools-hints.md \
-	   docs/my-password-generator.md
+ARTICLES = docs/blog/meson-first-impressions.md \
+	   docs/blog/prefer-data-constructors.md \
+	   docs/blog/shitty-software.md \
+	   docs/blog/dyndnsds-ast.md \
+	   docs/blog/more-unix-tools-hints.md \
+	   docs/blog/my-password-generator.md
 
 ARTICLES_HTML = ${ARTICLES:S/md$/html/}
 
@@ -18,7 +18,7 @@ ARTICLES_HTML = ${ARTICLES:S/md$/html/}
 	$(SBLG) -t page.xml -c $<
 
 all: $(ARTICLES_HTML)
-	cd docs && $(SBLG) -o index.html -t ../index.xml *.html
+	cd docs && $(SBLG) -o index.html -t ../index.xml blog/*.html
 
 clean:
 	rm -f docs/index.html $(ARTICLES_HTML) ${ARTICLES:S/md$/xml/}

@@ -33,9 +33,9 @@
   <header>
     <h1>dyndnsd&#39;s Abstract Syntax Tree</h1>
     <address>Mario Campos</address>
-    <time>2017-11-28</time>
-    <aside>All about how dyndnsd implements an Abstract Syntax Tree.</aside>
+    <time datetime="2017-11-28">2017-11-28</time>
   </header>
+  <aside>All about how dyndnsd implements an Abstract Syntax Tree.</aside>
   <p>For the past year, I&#39;ve been quietly working on a personal project called <a href="http://www.mariocampos.io/dyndnsd">dyndnsd</a>. I am planning to write an introduction later, but, right now, I want to talk about a novel aspect (in my opinion) of <code>dyndnsd</code>. Here&#39;s the TL;DR: <code>dyndnsd</code> is a Dynamic DNS daemon. That is, it&#39;s purpose is to run in the background and update the <em>A</em> records of some domain, based on the current IP address of some network interface.</p>
 
 <p>In order to know what domain to update and which interface to monitor, <code>dyndnsd</code> expects a configuration file. A simple configuration file might look like this:</p>

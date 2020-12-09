@@ -7,20 +7,18 @@ ARTICLES = docs/meson-first-impressions.md \
 	   docs/more-unix-tools-hints.md \
 	   docs/my-password-generator.md
 
-ARTICLES_XML = ${ARTICLES:S/md$/xml/}
 ARTICLES_HTML = ${ARTICLES:S/md$/html/}
 
 .SUFFIXES: .md .xml
 .md.xml:
-	LOWDOWN=$(LOWDOWN) sh templates/article.xml.sh $< >$@
+	LOWDOWN=$(LOWDOWN) sh article.xml.sh $< >$@
 
 .SUFFIXES: .xml .html
 .xml.html:
-	$(SBLG) -t templates/page.xml -c $<
+	$(SBLG) -t page.xml -c $<
 
 all: $(ARTICLES_HTML)
-	$(SBLG) -o docs/index.html -t templates/index.xml $(ARTICLES_XML)
-	$(SBLG) -a -o docs/atom.xml -t templates/atom.xml $(ARTICLES_XML)
+	cd docs && $(SBLG) -o index.html -t ../index.xml *.html
 
 clean:
-	rm -f docs/index.html docs/atom.xml $(ARTICLES_XML) $(ARTICLES_HTML)
+	rm -f docs/index.html $(ARTICLES_HTML) ${ARTICLES:S/md$/xml/}

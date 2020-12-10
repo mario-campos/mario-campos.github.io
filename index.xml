@@ -31,7 +31,7 @@
         </div>
       </header>
     </div>
-    <nav data-sblg-nav="1"/>
+    <nav class="wrapper" data-sblg-nav="1"/>
     <footer class="site-footer">
       <div class="wrapper"></div>
       <div class="color-bars-header">

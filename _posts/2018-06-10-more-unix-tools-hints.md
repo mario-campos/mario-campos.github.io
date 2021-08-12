@@ -1,5 +1,6 @@
 ---
 title: "More Hints for Writing Unix Tools"
+date: 2018-06-10 00:00:00 -0600
 layout: post
 tags: Unix shell scripting
 ---

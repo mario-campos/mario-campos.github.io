@@ -1,7 +1,7 @@
 ---
-title: "My Password Generator"
-date: 2018-08-22 00:00:00 -0600
 layout: post
+title: My Password Generator
+date: 2018-08-22 00:00:00 -0600
 tags: Unix shell scripting
 ---
 I often need to generate secure passwords for service accounts and what not. I could reach to one of the web-based "random" password generators, but I don't trust Javascript enough--and you shouldn't either. So, I've figured out a way to generate pseudorandom passwords, of any length, using nothing more than the standard tools provided by Linux:

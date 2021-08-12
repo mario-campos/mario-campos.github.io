@@ -1,7 +1,7 @@
 ---
-title: "More Hints for Writing Unix Tools"
-date: 2018-06-10 00:00:00 -0600
 layout: post
+title: More Hints for Writing Unix Tools
+date: 2018-06-10 00:00:00 -0600
 tags: Unix shell scripting
 ---
 I've been meaning to write this post for a long time, because I've been thinking that it needs to be said explicitly somewhere. I learned these Unix conventions implicitly, via imitation, as I reckon most have. It wasn't until I read Marius Eriksen's [Hints For Writing Unix Tools](https://monkey.org/~marius/unix-tools-hints.html) that I felt inspired to write down what I've been saying to myself all these years.

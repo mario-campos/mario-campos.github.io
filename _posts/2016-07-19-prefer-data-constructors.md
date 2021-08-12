@@ -1,7 +1,7 @@
 ---
-title: "Prefer Data Constructors"
-date: 2016-07-19 00:00:00 -0600
 layout: post
+title: Prefer Data Constructors
+date: 2016-07-19 00:00:00 -0600
 tags: [Python, Object Oriented Programming, Functional Programming]
 ---
 

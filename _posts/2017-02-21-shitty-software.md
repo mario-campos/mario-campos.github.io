@@ -1,7 +1,7 @@
 ---
-title: "Shitty Software"
-date: 2017-02-21 00:00:00 -0600
 layout: post
+title: Shitty Software
+date: 2017-02-21 00:00:00 -0600
 tags: minimalism OpenBSD
 ---
 

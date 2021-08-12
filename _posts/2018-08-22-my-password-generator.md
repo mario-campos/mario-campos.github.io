@@ -1,5 +1,6 @@
 ---
 title: "My Password Generator"
+date: 2018-08-22 00:00:00 -0600
 layout: post
 tags: Unix shell scripting
 ---

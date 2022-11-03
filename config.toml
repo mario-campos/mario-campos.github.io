@@ -21,6 +21,8 @@ relativeURLs = true
 	siteBasename     = 'Brutalist Minimalist Demo'
 	copyright        = 'Mario Campos'
 	copyrightYear    = '2022' # for site in case there is no page date, not yet implemented
+	githubURL        = 'https://github.com/mario-campos'
+	linkedinURL      = 'https://www.linkedin.com/in/marioacampos'
 
 	# --- Style tweaking ------------------------------
 

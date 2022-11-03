@@ -1,0 +1,193 @@
+The following is a list of open tasks for the gohugo
+brutalist-minimalist theme (as used by the author internally).
+
+* [3/5] Bugs
+** TODO TOC vanishes as mobile response (BM-1)
+
+This is b/c currently site menu and toc are nav elements and
+responsiveness is done via nav. Need to change this.
+
+For test see http://localhost:1313/lorem/ipsum
+
+It might make sense to let the toc vanish at smaller screen sizes or
+also make an hamburger from it, though. Regardless this is for later:
+First we must remove the responsiveness response here.
+
+** DONE Printing style partially ignored by Safari on IPadOS (BM-2)
+:PROPERTIES:
+:ID:       748e2dff-ddd7-4660-8fb0-f38e89ca14f8
+:END:
+
+Need to rebuild the printing style incrementally with Safari. Maybe
+also move the printing style in own asset to allow for easy user
+override (currently fix part of beyond-minimalism)
+
+** DONE Frame around the header has now vanished in printing style (BM-3)
+
+** TODO Code styling hacks need cleanup (BM-4)
+Monospace code styling is "improved" in beyond-minimalism.css, but
+then needs to be overridden in a rather fargile fashion in
+bm-printing.css. This needs to be refactored from ground up.
+
+** DONE Warning: .File.Path on zero object (BM-5)
+"WARN 2022/03/13 23:50:09 .File.Path on zero object. Wrap it in if or with: {{ with .File }}{{ .Path }}{{ end }"
+
+* [18/19] Release Readiness
+** DONE Try: Use conditional imports for responsiveness, then produce responsiveness.css via assets, dependent on title length.
+** DONE Glitzersachen needs an overhaul of the resonsive limits? => don't work w/o probs, why?
+=> responsiveness limits are more complicated, require substracting menus width etc, which in turn a comlicated to calculate.
+=> Best approach posisbly: Make all 5 of them to be set set in config.toml (since I cannot use
+   css variables, AFAIK).
+
+Also: We do not seem to have a multiply function in the templates, so we're limited anyway (But: examine that).
+
+** DONE Clean this file up (!)
+** DONE Rename -narrowish to compact-margins
+** DONE Rename Example Site
+=> This now really requires to calculate the responsiveness limits from the Site title
+** DONE Make copyright notice optional dep on having the string given in params
+If there is a page.Date, it should easily be possibly using with, otherwise a
+bit of a problem occurs.
+
+** DONE Test with various Browsers
+*** DONE Fennec on Android
+*** DONE DuckDuck Privacy Browser on Android
+*** DONE Safari on IPad OS (failing at printing), see [[id:748e2dff-ddd7-4660-8fb0-f38e89ca14f8][Printing style partially ignored by Safari on IPadOS]]
+*** DONE Firefox on IPad OS
+
+** DONE [3/3] Make Release Ready (conforming to expectations on https://gohugo.io/contribute/themes/)
+*** DONE lorem/lorem.md must show off math, inline and block code. => example-short.md
+*** DONE README.md
+*** DONE /images/screenshot.png and /images/tn.png
+
+** DONE Extend sample site, better example pages.
+** DONE KaTeX and highlighting should be included earlier
+** DONE Check license notes again
+** DONE make a thumbnail and a screenshot
+** DONE Configure Example Site online, deploy mechs
+
+Note: I can only release after I 
+
+*** DONE Configure Example Site on server and in DNS
+*** DONE Test Manual Deployment
+*** DONE Deployment Script with temp hardcoded targets
+*** DONE Deployment Script Reading from config.toml
+(Restriction not to read the full config system of hugo is accepted FTM)
+** DONE Lets Encrypt for brutalist-minimalist.glitzersachen.de
+** DONE Public version also need the german TMG/DSGVO declarations. What a nuisance
+Git version can be published earlier, but example site will be dead
+** DONE Sample pages should follow a different order than day - attribute order?
+** DONE Create first git version (local, publish to github and gitlabs)
+** DONE Publish at https://github.com/gohugoio/hugoThemesSiteBuilder
+
+** TODO [0/3] Manual Regression Testing (specifically printing + markup), 0.1.1rc
+*** TODO Fennec @ Android
+*** TODO Safari @ IPad
+*** TODO Firefox @ IPad
+
+
+* [3/26] Post Release, Pre Production Improvements
+
+** DONE Book record template
+** DONE Add document date to source line
+** DONE Change books listing (use topic as separator)
+- Topic is subheading, group by them
+- Use bib style listing (Author/Title/Year only, last tags) => factor out as partial.
+** TODO Blog post lists should show the date (in ISO)
+** TODO Every mape should show the tags. Where?
+** TODO Add a next edition/version field to the book records
+- a: in the template
+- b: book/single.html
+** TODO Docs for books database.
+** TODO List tags in pages and blog posts (where?)
+** TODO Shortcode to create links to tags, use this in tag/prolog to link to "logic programming"
+** TODO For the books/media database: Render the list more bib style. Shall we render by some major category?
+Also: Change to partials, passing the record (page) as parameter. Dito for the table format itself.
+** TODO Fix list and tags templates
+- Show "type" of listed items: Article, Book, Blogpost, list in bib or
+  other style, handle missin summary proper.
+- See also TODOs in current templates.
+** TODO Update field, missing date field
+- Missing date => Don't render a source line
+- Update set   => Render this as a date.
+** TODO Document responsiveness vars properly in config.toml (we still have the old vars there!)
+** TODO Make clalculated limits overrideable as well
+** TODO Think about reducing H-sizes (and replace by fat/grey) in narrow and very-narrow mode.
+** TODO Factor out partials: Subpages by order, Subpages by date
+** TODO Extend the README, show of some highlights.
+** TODO Complete Documentation
+** TODO Integrate footer in responsiveness
+- around activation of narrow (when copyright and footer links don't fit in a line) => witch to flushleft and stack footer links
+  Make copyright and footer links smaller.
+** TODO Describe Responsiveness (see Screenshots)
+** TODO Test with Chrome
+** TODO Consider effect of box drawing hacks on "normal" code display w/o known language.
+Maybe we need a shortcode for the boxdrawing to wrap a specific class around that. 
+** TODO Create some screenshots of the example site + put into \
+example site + readme.
+** TODO Complete documentation on/in example site
+** TODO Explain the brutalism aspect a bit
+There are actually 2 web brutalism movements meaning radically
+different things. I only mean one of them.
+** TODO Make params.subtitle and siteBasename optional
+** TODO Explain config variables (well, that's optional FTM)
+** TODO Configurable footer links (like nav-links)
+** TODO Configurable footer next (new)
+
+** TODO Parameters for styling of <code> => refactor
+
+** TODO in katex.html explain choice of delimiters
+
+
+* [0/9] Post Production Improvements
+
+** TODO Version descriptor in scripts should be read from CHANGELOG.md (!)
+** TODO The print style needs to be refactored to variables (at least partially)
+** TODO ASCII Graphics should become a short code!
+so that we can adjust the line high appropriately there and remove/avoid the frame in print styling.
+** TODO Examine possibilities of inline highlighted code
+
+This requires more than modifying:
+
+: <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"> foobar </code></pre></div>
+
+** TODO Style a maximum width for the body (ca 100 ex)
+** TODO Try to pass H level to recent-posts as parameter (is that even possible?)
+Would also need to be able to produce raw html tokens (not: Strings).
+** TODO Configurable fonts, maybe use default helvetica
+I, personally, find that ATM not this important). Is there a way to
+expand CSSes, so we can can render a css/font.css dependend on site
+variables? That would be good for having the ability to remove the
+fonts again in a tar ball after rendering. "Unstyling the site".
+
+** TODO Allow to switch away from the h1/h2 use
+
+Allow to switch away from the h1/h2 use as enforced currently to
+s.th. that does allow to use the headings as the headings on the
+page (of course, now page titles could be different from h1, but
+that would be intended).
+
+** TODO Allow switching back to loading katex from the internet
+** TODO Calculate (approx) responsive limits from title and subtitle
+
+** TODO Char Graphics characters experiments and recommendations
+Also: Is there enough material to systematize this sort of drawing?
+Can I have "half-lines?" Can I write an emacs package to support
+creating line drawings?
+
+╹ <- yes, possibly. So I can draw/remove lines with a half-box granularity ... 
+
+** TODO Consider older browsers again - typically \
+... we'd rather turn off all stylesheets for browsers that don't support css3 and fall back to default html.
+Should also have an FAQ on this, linked from the footer or below.
+
+** TODO Is it possible to embed plantuml?
+
+* [0/1] Backend/Frontend stuff
+
+Strictly not about hugo, but using hugo as a backend and pulling pages
+from some upstream collection (also do some preprocessing, e.g. adjust
+heading levels accordingly) => put into scripts.
+
+** TODO Implement a simple (single file preprocessing only) front-end mech
+

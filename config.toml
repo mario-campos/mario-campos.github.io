@@ -1,0 +1,4 @@
+baseURL = 'https://mario-campos.github.io/'
+languageCode = 'en-us'
+title = 'xget'
+theme = 'brutalist-minimalist'

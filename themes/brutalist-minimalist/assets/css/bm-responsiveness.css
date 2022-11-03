@@ -1,0 +1,87 @@
+{{/*
+
+   The MIT License (MIT)
+
+   Copyright (c) 2022 M E Leypold
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy of
+   this software and associated documentation files (the "Software"), to deal in
+   the Software without restriction, including without limitation the rights to
+   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+   the Software, and to permit persons to whom the Software is furnished to do so,
+   subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+   
+*/}}
+
+{{ $averageCharWidth := (default 0.7 (index .Site.Params "averageCharWidth" )) }}
+{{ $fullH1Size       := (default 1.8 (index .Site.Params "fullH1Size" )) }}
+{{ $smallerH1Size    := (default 1.5 (index .Site.Params "smallerH1Size" )) }}
+
+{{ $menuWidth        := (default 24  (index .Site.Params "menuWidth" )) }}
+{{ $menuCompactWidth := (default 8   (index .Site.Params "menuCompactWidth" )) }}
+
+{{ $extraMargin      := (default 3   (index .Site.Params "extraMargin" )) }}
+{{ $smallExtraMargin := (default 1   (index .Site.Params "smallExtraMargin" )) }}
+
+{{ $titleWidth        := (mul (mul (len .Site.Title) $fullH1Size) $averageCharWidth) }}
+{{ $smallerTitleWidth := (mul (mul (len .Site.Title) $smallerH1Size) $averageCharWidth) }}
+{{ $smallTitleWidth   := (mul (len .Site.Title) $averageCharWidth) }}
+
+{{/* TODO: 
+     - subtitle width should also be part of the calculation
+     - limits should be overridable from config 
+ */}}
+
+{{ $limitCompactMenu       := (add (add $titleWidth $extraMargin) $menuWidth) }}
+
+{{ $limitHamburgerMenu     := (add (add $titleWidth $extraMargin) $menuCompactWidth) }}
+{{ $limitNarrowLayout      := (add $smallerTitleWidth $smallExtraMargin) }}
+{{ $limitVeryNarrowLayout  := (add $smallTitleWidth   $smallExtraMargin) }}
+
+{{ $limitCompactLayout     := 30 }}
+
+/* Calculated parameters & limit values:
+ *
+ * $averageCharWidth       : {{ $averageCharWidth       }} em
+ * $fullH1Size             : {{ $fullH1Size             }} (factor)
+ * $smallerH1Size          : {{ $smallerH1Size          }} (factor)
+ *
+ * $menuWidth              : {{ $menuWidth              }} em
+ * $menuCompactWidth       : {{ $menuCompactWidth       }} em
+ *
+ * $extraMargin            : {{ $extraMargin            }} em
+ * $smallExtraMargin       : {{ $smallExtraMargin       }} em
+ *
+ * $Limitcompactmenu       : {{ $limitCompactMenu       }} em
+ * $limitHamburgerMenu     : {{ $limitHamburgerMenu     }} em
+ * $limitCompactLayout     : {{ $limitCompactLayout     }} em
+ * $limitNarrowLayout      : {{ $limitNarrowLayout      }} em
+ * $limitVeryNarrowLayout  : {{ $limitVeryNarrowLayout  }} em
+ */
+
+@import url(bm-responsiveness-compact-menu.css)
+  (max-width:{{ with .Site.Params.limitCompactMenu }}{{.}}{{else}}{{ $limitCompactMenu}}{{end}}em);
+@import url(bm-responsiveness-hamburger.css)
+  (max-width:{{ with .Site.Params.limitHamburgerMenu }}{{.}}{{else}}{{ $limitHamburgerMenu}}{{end}}em);
+
+/* switch to hamburger menu as soon as compact layout gets active! */
+
+@import url(bm-responsiveness-hamburger.css)
+  (max-width:{{ with .Site.Params.limitCompactLayout }}{{.}}{{else}}{{ $limitCompactLayout}}{{end}}em);
+@import url(bm-responsiveness-compact-layout.css)
+  (max-width:{{ with .Site.Params.limitCompactLayout }}{{.}}{{else}}{{ $limitCompactLayout}}{{end}}em);
+
+@import url(bm-responsiveness-narrow.css)
+  (max-width:{{ with .Site.Params.limitNarrowLayout }}{{.}}{{else}}{{ $limitNarrowLayout}}{{end}}em);
+@import url(bm-responsiveness-very-narrow.css)
+  (max-width:{{ with .Site.Params.limitVeryNarrowLayout }}{{.}}{{else}}{{ $limitVeryNarrowLayout}}{{end}}em);

@@ -1,0 +1,18 @@
+name        = "Brutalist-Minimalist"
+license     = "MIT"
+licenselink = "https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme/-/blob/main/LICENSE"
+description = "A theme following the brutalist idea (not in the sense of 'ugly' but in the sense of 'true to the material'"
+
+# The home page of the theme, where the source can be found.
+homepage = "https://gitlab.com/m-e-leypold/brutalist-minimalist-gohugo-theme"
+
+# If you have a running demo of the theme.
+demosite = "https://brutalist-minimalist.glitzersachen.de"
+
+tags = ["blog"]
+features = ["Responsive", "KaTeX", "Math", "Minimal"]
+
+[author]
+    name = "M E Leypold"
+    homepage = "www.glitzersachen.de"
+

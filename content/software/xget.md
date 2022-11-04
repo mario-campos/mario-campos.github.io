@@ -2,7 +2,7 @@
 title: xget
 subtitle: A minimal, secure, command-line tool for interfacing with XDCC senders.
 date: 2022-11-04T11:52:14-05:00
-draft: true
+draft: false
 ---
 
 ## Usage

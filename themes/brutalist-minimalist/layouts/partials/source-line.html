@@ -23,12 +23,13 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    
 */}}
-{{$page := .}}
+
+{{ $page := . }}
 {{ $source := "" }}
-{{if .IsPage}}
-{{$source = ref $page .File.Path}}
-{{else}}
-{{$source = ref $page "."}}
+{{ if .IsPage }}
+{{ $source = ref $page .File.Path }}
+{{ else }}
+{{ $source = ref $page "." }}
 {{ end }}
-<p id="source-url">Source: <a href={{$source | relURL}}>{{$source | absURL}}</a>, {{time.Format "2006-01-02" .Date}}</p>
+<p id="source-url">Source: <a href={{ $source | relURL }}>{{ $source | absURL }}</a>, {{ time.Format "2006-01-02" .Date }}</p>
 

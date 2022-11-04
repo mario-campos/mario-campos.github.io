@@ -3,6 +3,7 @@
    The MIT License (MIT)
 
    Copyright (c) 2022 M E Leypold
+   Copyright (c) 2022 Mario Campos
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of
    this software and associated documentation files (the "Software"), to deal in
@@ -25,7 +26,7 @@
 {{$page := .}}
 {{ $source := "" }}
 {{if .IsPage}}
-{{$source = ref $page .Path}}
+{{$source = ref $page .File.Path}}
 {{else}}
 {{$source = ref $page "."}}
 {{ end }}

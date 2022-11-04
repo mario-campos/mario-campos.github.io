@@ -22,17 +22,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-p::first-letter {
-    color: var(--decoration-color);
-    font-weight: bold;
-}
-
-
-li > p::first-letter {
-    color: inherit;
-    font-weight: inherit;
-}
-
 #source-url::first-letter {
     color: inherit;
     font-weight: inherit;

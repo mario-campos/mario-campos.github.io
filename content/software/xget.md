@@ -16,13 +16,13 @@ The URI format is `irc://HOSTNAME[:PORT]/[#]CHANNEL[,[#]CHANNEL...]`. If the por
 
 ## Flags
 
-* `-A`, `--no-acknowledge`
+`-A`, `--no-acknowledge`
   * This flag may be used to suppress xget from returning file offsets as acknowledgements. Although it is DCC protocol to send these acknowledgements, many DCC senders don't require them&mdash;some will even abort the DCC transfer if too many acknowledgements are sent.
 
-* `-O`, `--output-document`
+`-O`, `--output-document`
   * This flag may be used to create the file with a given name, instead of the name provided by the DCC sender. This option requires one argument: the new name and/or path of the file to be downloaded.
 
-### Examples
+## Examples
 
 Request pack #34 from nick _super-duper-bot_ with `XDCC SEND` on the IRC network irc.sampel.net, after joining the IRC channel _#best-channel_.
 
@@ -42,7 +42,7 @@ Request pack #34 from nick _super-duper-bot_ with `XDCC SEND` on the IRC network
 xget irc://irc.sampel.net/#best-channel,#best-chat-channel super-duper-bot send 34
 ``` 
 
-#### Supported Operating Systems:
+## Supported Operating Systems:
 
 * GNU/Linux
 * OpenBSD

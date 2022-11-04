@@ -27,7 +27,7 @@
 <html lang ="en-US">
   <head>
     {{- partial "head.html" . -}}
-    <title>{{- block "title" .Page }}{{- end}}</title>
+    <title>{{ .Page.Title }}</title>
   </head>
   <body leftmargin=40 rightmarin=40>
     {{ block "header" . }}{{ end }}

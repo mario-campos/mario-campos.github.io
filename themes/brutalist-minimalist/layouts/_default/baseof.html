@@ -3,6 +3,7 @@
    The MIT License (MIT)
 
    Copyright (c) 2022 M E Leypold
+   Copyright (c) 2022 Mario Campos
 
    Permission is hereby granted, free of charge, to any person obtaining a copy of
    this software and associated documentation files (the "Software"), to deal in
@@ -22,11 +23,12 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    
 */ -}}
+
 <!DOCTYPE html>
 <html lang ="en-US">
   <head>
     {{- partial "head.html" . -}}
-    <title>{{- block "title" .Page }}{{- end}}</title>
+    <title>{{ .Page.Title }}</title>
   </head>
   <body leftmargin=40 rightmarin=40>
     {{ partial "header.html" .}}

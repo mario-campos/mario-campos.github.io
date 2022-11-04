@@ -22,5 +22,21 @@
    CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
    
 */}}
-<a href="{{ "blog/"    | relURL }}">Blog</a>
-<a href="{{ "software/" | relURL }}">Software</a>
+
+{{ define "title" }}
+{{.Page.Title}} | {{.Site.Params.siteBasename}}
+{{ end }}
+{{ define "header" }}
+<header>
+  <h1>{{ .Site.Title }}</a></h1>
+  <em id="subtitle">{{ .Site.Params.subtitle }}</em>
+</header>
+{{ end }}
+{{ define "main" }}
+{{ .Content }}
+<ul id="page-list">
+{{ range .Pages }}
+<li class="page-list-item"><a href="{{ .RelPermalink }}">{{ .Title }}</a> &mdash; <span class="page-summary">{{ .Params.subtitle }}</span></li>
+{{ end }}
+</ul>
+{{ end }}

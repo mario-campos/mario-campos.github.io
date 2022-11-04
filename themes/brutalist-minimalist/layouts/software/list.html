@@ -24,12 +24,10 @@
 */}}
 
 {{ define "header" }}
-<header>
-  <h1>{{ .Site.Title }}</a></h1>
-  <em id="subtitle">{{ .Site.Params.subtitle }}</em>
-</header>
+{{ partial "header.html" . }}
 {{ end }}
 {{ define "main" }}
+<h2>{{ .Page.Title }}</h2>
 {{ .Content }}
 <ul id="page-list">
 {{ range .Pages }}

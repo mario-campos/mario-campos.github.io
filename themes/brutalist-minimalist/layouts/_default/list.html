@@ -25,11 +25,11 @@
 */}}
 
 {{ define "main" }}
-<h2>{{.Page.Title}}</h2>
-{{.Content}}
+<h2>{{ .Page.Title }}</h2>
+{{ .Content }}
 <ul id="page-list">
 {{range .Pages }}
-<li class="page-list-item"><a href="{{ .RelPermalink }}">{{.Title}}</a> &mdash; <span class="page-summary">{{.Summary}}</span></li>
-{{end}}
+<li class="page-list-item"><a href="{{ .RelPermalink }}">{{ .Title }}</a> &mdash; <span class="page-summary">{{ .Summary }}</span></li>
+{{ end }}
 </ul>
 {{ end }}

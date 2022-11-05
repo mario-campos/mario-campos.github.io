@@ -1,6 +1,6 @@
 ---
 title: dyndnsd
-subtitle: A secure, minimal, and generic Dynamic-DNS daemon for OpenBSD.
+subtitle: A minimal, secure, and generic Dynamic-DNS daemon for OpenBSD.
 date: 2022-11-04T21:07:01-05:00
 draft: false
 ---

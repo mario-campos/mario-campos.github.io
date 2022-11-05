@@ -56,4 +56,4 @@ In order to use wol, the target computer must support Wake-On-LAN, which is typi
 
 ## LICENSE
 
-wol is licensed with [GNU GPL 3.0])http://www.gnu.org/licenses/gpl-3.0.txt).
+wol is licensed with [GNU GPL 3.0](http://www.gnu.org/licenses/gpl-3.0.txt).

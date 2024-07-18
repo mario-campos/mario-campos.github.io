@@ -35,18 +35,37 @@ plexlint -h|--help
 
 ### PXLINT001
 
-PXLINT001 checks for the existance of empty directories. Empty directories serve no purpose to Plex and may only create the "illusion" of a legitimate movie in Plex.
+PXLINT001 checks for empty movie directories.
+
+Empty movie directories serve no purpose to Plex. Additionally, they may incur performance delays as the empty directories must be parsed and processed by Plex.
+
+Empty movie directories may also create the illusion of a legitimate movie in Plex, by confusingly showing a movie entry in the library without any playable files.
 
 ### PXLINT002
 
-PXLINT002 checks for the existence of movie files at the root of the library. Plex recommends organizing movies into their own individual directories under the library root.
+PXLINT002 checks for movie files in the library root directory.
+
+Plex recommends organizing movies into their own individual directories under the library root. To quote,
+
+>Movie files can be placed into individual folders and this is the recommended method, as it can (sometimes significantly) increase the speed of scanning in new media. This method is also useful in cases where you have external media for a movie (e.g. custom poster, external subtitle files, etc.).
 
 For more information, see https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/.
 
 ### PXLINT003
 
-PXLINT003 checks for movie files that are not readable by the Plex user.
+PXLINT003 checks for movie files/directories with insufficient permission.
+
+Movie files that are not readable by the Plex media server process cannot be imported into the library. Likewise, directories that are not readable and executable can not be scanned by Plex.
 
 ### PXLINT004
 
-PXLINT004 checks for movie files whose metadata does not match its directory.
+PXLINT004 checks for movie file names that do not match their parent directory names.
+
+Since Plex recommends storing movies in their own directories, a movie file name should match the parent directory name. To quote,
+
+>Name the folder the same as the movie file:
+>
+>    /Movies/MovieName (release year)/MovieName (release year).ext
+
+
+For more information, see https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/.

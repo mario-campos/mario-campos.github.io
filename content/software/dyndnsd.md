@@ -13,6 +13,23 @@ dyndnsd is a Dynamic-DNS daemon for OpenBSD. It is minimal, lightweight, intuiti
 dyndnsd [-dhnv] [-f _file_]
 ```
 
+## FLAGS
+
+`-d`
+* Run dyndnsd in debug mode.
+
+`-f`
+* Specify the dyndnsd configuration file as _FILE_.
+
+`-n`
+* Validate the configuration file, then terminate.
+
+`-h`
+* Output the usage and flags.
+
+`-v`
+* Output the version number.
+
 ## EXAMPLES
 
 First, create the configuration file, */etc/dyndnsd.conf*:

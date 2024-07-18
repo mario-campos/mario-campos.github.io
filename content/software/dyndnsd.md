@@ -10,7 +10,7 @@ dyndnsd is a Dynamic-DNS daemon for OpenBSD. It is minimal, lightweight, intuiti
 ## USAGE
 
 ```
-dyndnsd [-dhnv] [-f _file_]
+dyndnsd [-dhnv] [-f FILE]
 ```
 
 ## FLAGS

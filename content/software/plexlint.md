@@ -31,7 +31,7 @@ plexlint -h|--help
 * Linux
 * FreeBSD
 
-## CHECKS
+## PLEXLINT CHECKS
 
 ### PXLINT001
 

@@ -7,13 +7,13 @@ draft: false
 
 dyndnsd is a Dynamic-DNS daemon for OpenBSD. It is minimal, lightweight, intuitive, and generic/extensible enough to support any Dynamic-DNS provider. Whereas other Dynamic-DNS clients are scripted, one-shot, or limited to certain DNS providers, dyndnsd aims to be a simple and secure C program that runs quietly in the background, updating your DNS provider only as often as necessary. Furthermore, it supports any DNS provider by supplying it a command to execute, rather than an HTTP URL.
 
-## Usage
+## USAGE
 
 ```
 dyndnsd [-dhnv] [-f _file_]
 ```
 
-## Example
+## EXAMPLES
 
 First, create the configuration file, */etc/dyndnsd.conf*:
 
@@ -41,6 +41,6 @@ Then, start the daemon:
 dyndnsd
 ```
 
-## Supported Operating Systems
+## SUPPORTED OPERATING SYSTEMS
 
 * OpenBSD

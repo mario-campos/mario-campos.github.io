@@ -5,7 +5,17 @@ date: 2022-11-05T09:45:19-05:00
 draft: false
 ---
 
-plexlint is a command-line tool for scanning Plex library directories for potential problems. plexlint tries to identify files and directories that do not conform to Plex's recommended layout and naming conventions.
+plexlint is a command-line tool for scanning Plex library directories for potential problems. plexlint tries to identify files and directories that do not conform to Plex’s recommended layout and naming conventions.
+
+It couldn't be easier to use plexlint! Once compiled, simply supply one or more movie-library root directories with the `-m` flag.
+
+```shell
+$ plexlint -m /path/to/movies
+PXLINT001  /path/to/movies/my_empty_folder
+PXLINT002  /path/to/movies/movie.mkv
+```
+
+The output is be a tab-separated value of two "columns": the first contains the check ID&mdash;it's meaning can be referenced at the [homepage](https://mario-campos.github.io/software/plexlint/). The second column contains the problematic movie file/folder to which the check is referring.
 
 ## USAGE
 
@@ -26,10 +36,22 @@ plexlint -h|--help
 `-h`, `--help`
 * Output the usage and flags.
 
+## BUILD
+
+plexlint is written in the D programming language, which means you need [dub](https://dub.pm/) to compile plexlint:
+
+```
+dub build
+```
+
 ## SUPPORTED OPERATING SYSTEMS
 
 * Linux
 * FreeBSD
+
+## CAVEATS
+
+Currently, plexlint is limited to linting movies, but the goal is to eventually be able to lint TV shows and music as well.
 
 ## PLEXLINT CHECKS
 

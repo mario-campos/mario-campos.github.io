@@ -11,8 +11,8 @@ It couldn't be easier to use plexlint! Once compiled, simply supply one or more 
 
 ```shell
 $ plexlint -m /path/to/movies
-PXLINT001  /path/to/movies/my_empty_folder
-PXLINT002  /path/to/movies/movie.mkv
+PL001  /path/to/movies/my_empty_folder
+PL002  /path/to/movies/movie.mkv
 ```
 
 The output is be a tab-separated value of two "columns": the first contains the check ID&mdash;it's meaning can be referenced at the [homepage](https://mario-campos.github.io/software/plexlint/). The second column contains the problematic movie file/folder to which the check is referring.
@@ -55,17 +55,17 @@ Currently, plexlint is limited to linting movies, but the goal is to eventually 
 
 ## PLEXLINT CHECKS
 
-### PXLINT001
+### PL001
 
-PXLINT001 checks for empty movie directories.
+PL001 checks for empty movie directories.
 
 Empty movie directories serve no purpose to Plex. Additionally, they may incur performance delays as the empty directories must be parsed and processed by Plex.
 
 Empty movie directories may also create the illusion of a legitimate movie in Plex, by confusingly showing a movie entry in the library without any playable files.
 
-### PXLINT002
+### PL002
 
-PXLINT002 checks for movie files in the library root directory.
+PL002 checks for movie files in the library root directory.
 
 Plex recommends organizing movies into their own individual directories under the library root. To quote,
 
@@ -73,15 +73,15 @@ Plex recommends organizing movies into their own individual directories under th
 
 For more information, see https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/.
 
-### PXLINT003
+### PL003
 
-PXLINT003 checks for movie files/directories with insufficient permission.
+PL003 checks for movie files/directories with insufficient permission.
 
 Movie files that are not readable by the Plex media server process cannot be imported into the library. Likewise, directories that are not readable and executable can not be scanned by Plex.
 
-### PXLINT004
+### PL004
 
-PXLINT004 checks for movie file names that do not match their parent directory names.
+PL004 checks for movie file names that do not match their parent directory names.
 
 Since Plex recommends storing movies in their own directories, a movie file name should match the parent directory name. To quote,
 

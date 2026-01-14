@@ -38,7 +38,7 @@
             delimiters: [
 		
 		{{ with .File }}
-		{{- if (eq .File.Ext "org" ) -}}  
+		{{- if (eq .Ext "org" ) -}}
 		
 		{left: '$$', right: '$$', display: true},
 		{left: '$', right:  '$', display: false}

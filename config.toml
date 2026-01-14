@@ -4,6 +4,10 @@ title        = 'Mario Campos'
 theme        = 'brutalist-minimalist'
 relativeURLs = true
 
+[security]
+  [security.exec]
+    allow = ['asciidoc']
+
 [markup]
   [markup.highlight]
     noClasses=false

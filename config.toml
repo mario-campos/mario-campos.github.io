@@ -41,24 +41,9 @@ relativeURLs = true
 	#
 	styleParametersCSS      = 'css/style-parameters.css'
 	styleTweaksCSS          = 'css/style-tweaks.css'
-	# fontSettingsCSS         = 'css/font-settings.css'
 	
 	# Fall back to more minimalism
 	styleMinimalistOnly = false
 	noStylingAtAll      = false      # we use that to see how this might render in text mode
 
-	# Overriding responsiveness
-	# responsivenessLimitsCSS = 'css/NONE.css'
-	# limitCompactMenu      = 55
-	# limitHamburgerMenu    = 40	    
-	# limitCompactLayout    = 30	    
-	# limitNarrowLayout     = 25	  
-	# limitVeryNarrowLayout = 17
-
 	averageCharWidth        = 0.7
-
-[deployment]
-
-	testing    = "/srv/http/bm-testing"
-	production = "rsync://web-op@www.glitzersachen.de:/var/www/html/brutalist-minimalist"
-

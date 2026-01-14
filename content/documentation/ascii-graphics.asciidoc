@@ -9,7 +9,7 @@ How do ASCII and unicode character based graphics come out?
 
 <!--more-->
 
-### Unicode Glyph based Graphics
+=== Unicode Glyph based Graphics
 
 Nullam eu ante vel est convallis dignissim.  Fusce suscipit, wisi nec
 facilisis facilisis, est dui fermentum leo, quis tempor ligula erat
@@ -23,7 +23,7 @@ Sed bibendum.  Aliquam posuere.
 This is without a special short code that would adjust the line height
 (even) better.
 
-### Standard ASCII based Graphics
+=== Standard ASCII based Graphics
 
 Nunc aliquet, augue nec adipiscing interdum, lacus tellus malesuada
 massa, quis varius mi purus non odio.  Pellentesque condimentum, magna

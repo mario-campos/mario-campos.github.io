@@ -15,9 +15,9 @@ JS001  /path/to/movies/my_empty_folder
 JS002  /path/to/movies/movie.mkv
 ```
 
-The output is be a tab-separated value of two "columns": the first contains the check ID&mdash;it's meaning can be referenced at the [homepage](https://mario-campos.github.io/software/jotspot/). The second column contains the problematic movie file/folder to which the check is referring.
+The output is be a tab-separated value of two "columns": the first contains the check ID&mdash;it's meaning can be referenced at the link:https://mario-campos.github.io/software/jotspot/[homepage]. The second column contains the problematic movie file/folder to which the check is referring.
 
-## USAGE
+== USAGE
 
 ```
 jotspot -m|--movies PATH
@@ -25,7 +25,7 @@ jotspot -v|--version
 jotspot -h|--help
 ```
 
-## FLAGS
+== FLAGS
 
 `-m`, `--movies`
 * Specify a path to a movie library root directory. More than one of these flags can be passed.
@@ -36,26 +36,26 @@ jotspot -h|--help
 `-h`, `--help`
 * Output the usage and flags.
 
-## BUILD
+== BUILD
 
-jotspot is written in the D programming language, which means you need [dub](https://dub.pm/) to compile jotspot:
+jotspot is written in the D programming language, which means you need link:https://dub.pm/[dub] to compile jotspot:
 
 ```
 dub build
 ```
 
-## SUPPORTED OPERATING SYSTEMS
+== SUPPORTED OPERATING SYSTEMS
 
 * Linux
 * FreeBSD
 
-## CAVEATS
+== CAVEATS
 
 Currently, jotspot is limited to linting movies, but the goal is to eventually be able to lint TV shows and music as well.
 
-## jotspot CHECKS
+== jotspot CHECKS
 
-### JS001
+=== JS001
 
 JS001 checks for empty movie directories.
 
@@ -63,7 +63,7 @@ Empty movie directories serve no purpose to Plex. Additionally, they may incur p
 
 Empty movie directories may also create the illusion of a legitimate movie in Plex, by confusingly showing a movie entry in the library without any playable files.
 
-### JS002
+=== JS002
 
 JS002 checks for movie files in the library root directory.
 
@@ -73,13 +73,13 @@ Plex recommends organizing movies into their own individual directories under th
 
 For more information, see https://support.plex.tv/articles/naming-and-organizing-your-movie-media-files/.
 
-### JS003
+=== JS003
 
 JS003 checks for movie files/directories with insufficient permission.
 
 Movie files that are not readable by the Plex media server process cannot be imported into the library. Likewise, directories that are not readable and executable can not be scanned by Plex.
 
-### JS004
+=== JS004
 
 JS004 checks for movie file names that do not match their parent directory names.
 

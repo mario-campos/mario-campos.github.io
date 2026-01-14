@@ -1,20 +1,22 @@
 ---
-title: "First Example Page"
+title: "Second Example Page"
 date:  2022-02-14T23:27:50+01:00
 draft: false
 math:  true
-order: 950
+order: 960
 ---
 
 Showing how various elements come out in the [Hugo][] theme
-"[Brutalist-Minimalist][bm]".
+"[Brutalist-Minimalist][bm]", this time with a table of content.
 
   [bm]:   https://brutalist-minimalist.glitzersachen.de
   [hugo]: https://gohugo.io/
 
 <!--more-->
 
-### Math & Code
+{{< toc >}}
+
+=== Math & Code
 
 Here is the function ```main``` of *Hello World*:
 
@@ -42,7 +44,7 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit.  Donec
 hendrerit tempor tellus.  Donec pretium posuere tellus.  Proin quam
 nisl, tincidunt et, mattis eget, convallis nec, purus.
 
-### Enumerations & Itemizations
+=== Enumerations & Itemizations
 
 Itemizing stuff looks like this:
 

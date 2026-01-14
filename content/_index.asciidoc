@@ -1,0 +1,20 @@
+---
+title: Welcome
+date: 2022-02-14T23:27:50+01:00
+draft: false
+---
+
+== Welcome
+
+Welcome to the Brutalist-Minimalist theme for [Gohugo]. This is the
+Homepage.
+
+ - link:documentation/why/[Why this style? What's this thing about brutalism?]
+ - link:documentation/[Documentation how to apply the style and how to use the style].
+ - link:lorem/[Lorem ipsum blindtext].
+ - link:blog/[Some sample blog posts], see also below for the most recent 3.
+ - link:book/[An online books database example].
+ - link:tags/[The tags example].
+
+  [Gohugo]: https://gohugo.io/
+

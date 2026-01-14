@@ -11,6 +11,10 @@ relativeURLs = true
     endLevel = 4
     ordered = true
     startLevel = 3
+  [markup.asciidocExt]
+    preserveTOC = true
+    workingFolderCurrent = false
+    attributes = { toc = "macro", sectlinks = true, hide-uri-scheme = true }
 
 
 [params]

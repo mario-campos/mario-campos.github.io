@@ -8,7 +8,7 @@ Aliquam erat volutpat.  Nunc eleifend leo vitae magna.  In id erat non orci comm
 
 <!--more-->
 
-### Proin neque
+=== Proin neque
 
 Massa, cursus ut, gravida ut, lobortis eget, lacus.  Sed
 diam.  Praesent fermentum tempor tellus.  Nullam tempus.  Mauris ac
@@ -17,7 +17,7 @@ nec dui dignissim bibendum.  Vivamus id enim.  Phasellus neque orci,
 porta a, aliquet quis, semper a, massa.  Phasellus purus.
 Pellentesque tristique imperdiet tortor.  Nam euismod tellus id erat.
 
-### Pellentesque dapibus 
+=== Pellentesque dapibus 
 
 Suscipit ligula.  Donec posuere augue in quam.  Etiam vel tortor
 sodales tellus ultricies commodo.  Suspendisse potenti.  Aenean in sem

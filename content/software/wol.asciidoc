@@ -7,7 +7,7 @@ draft: false
 
 wol is a command-line tool for implementing the Wake-On-LAN protocol over a local-area network.
 
-## USAGE
+== USAGE
 
 ```
 wol [OPTION...] <mac address>
@@ -21,7 +21,7 @@ Wake-On-LAN packet sender
   -V, --version              Print program version
 ```
 
-## FLAGS
+== FLAGS
 
 `-i`, `--interface`
 * Specify the network interface through which to send the magic packet.
@@ -41,7 +41,7 @@ Wake-On-LAN packet sender
 `-V`, `--version`
 * Output the version number.
 
-## INSTALL
+== INSTALL
 
 ```shell
 ./autogen.sh
@@ -50,10 +50,10 @@ make
 sudo make install
 ```
 
-## CAVEATS
+== CAVEATS
 
 In order to use wol, the target computer must support Wake-On-LAN, which is typically a requirement of the network interface card.
 
-## LICENSE
+== LICENSE
 
-wol is licensed with [GNU GPL 3.0](http://www.gnu.org/licenses/gpl-3.0.txt).
+wol is licensed with link:http://www.gnu.org/licenses/gpl-3.0.txt[GNU GPL 3.0].

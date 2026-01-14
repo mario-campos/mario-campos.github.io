@@ -14,11 +14,14 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
+
+env:
+  HUGO_VERSION: 0.154.5
+
 jobs:
   build:
     runs-on: ubuntu-slim
     env:
-      HUGO_VERSION: 0.154.5
       HUGO_DOWNLOAD: hugo_extended_${{ env.HUGO_VERSION }}_Linux-64bit.deb
     steps:
     - name: Install Hugo CLI
